@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="w-100 mb-5 text-center">{{jour | date:'EEEE'}}</h1>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-2 d-flex justify-content-center ml-2 mr-2 mb-3 p-0" *ngFor="let jourDeLaSemaine of joursDeLaSemaine">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                  {{jourDeLaSemaine}}
+                </div>
+                <ul class="list-group list-group-flush">
+                    <div *ngFor="let thing of afficher" [ngClass]="{'d-none': thing.jour != jourDeLaSemaine}" class="border-bottom border-dark-50">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" [ngClass]="{'text-danger': true, 'text-danger':thing.propre === false, 'text-success': thing.propre === true}">{{thing.chien}}
+                            <div>
+                                <svg (click)="modificationChienDansPlanning(thing._id)" style="cursor: pointer;" width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-check2" fill="green" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                                <svg (click)="suppressionChienDansPlanning(thing._id)" style="cursor: pointer;" width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-x" fill="red" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                           </div>
+                        </li>
+                    </div>
+                </ul>
+              </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <form (ngSubmit)="formSubmit(f)" #f="ngForm" class="mt-5 mb-5 p-5 bg-dark text-light text-center">
+                <div class="form-group">
+                    <label for="chien" class="h2">Nom du toutou</label>
+                    <select name="chien" id="chien" class="form-control" ngModel>
+                        <option *ngFor="let thing of afficher">{{thing.chien}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jour" class="h2">Jour de la semaine</label>
+                    <select name="jour" id="jour" class="form-control" ngModel>
+                        <option *ngFor="let jourDeLaSemaine of joursDeLaSemaine">{{jourDeLaSemaine}}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+</div>
