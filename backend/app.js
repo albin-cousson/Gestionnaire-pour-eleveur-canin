@@ -19,7 +19,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-});
+});      
 
 app.use(bodyParser.json())
 
@@ -50,9 +50,9 @@ app.delete('/delete/:id', (req, res, next) => {
     .then(() => {res.status(200).json({message: "Suppression réussi !"})})
     .catch((error) => {res.json(400).json(error)})
 })
-
+  
 date = new Date()
 jour = date.getDay()
 console.log(jour)
 
-module.exports = app 
+module.exports = app    
